@@ -1,3 +1,7 @@
+let humanScore = 0;
+let computerScore = 0;
+let roundPlayed = 0;
+const maxRounds = 5;
 choices = ["rock", "paper", "scissors"];
 function getComputerChoice() {
   return choices[Math.floor(Math.random() * 3)];
@@ -34,23 +38,54 @@ function playRound(ComputerChoice, humanChoice) {
   } else {
     console.log(`It's a tie! Both chose ${humanChoice}`);
   }
+
+  roundPlayed += 1;
+  updateScore();
 }
 
+function updateScore() {
+  let result = document.querySelector(".result");
+  let score = document.querySelector(".human");
+  let tie = document.querySelector(".tie");
+  let computer = document.querySelector(".computer");
+
+  score.innerText = `Human: ${humanScore}`;
+  computer.innerText = `Computer: ${computerScore}`;
+  tie.innerText = `Ties: ${roundPlayed - humanScore - computerScore}`;
+
+  if (roundPlayed >= maxRounds) {
+    if (humanScore > computerScore) {
+      result.innerText = `You win! ${humanScore} - ${computerScore}`;
+    } else if (humanScore < computerScore) {
+      result.innerText = `You lose! ${humanScore} - ${computerScore}`;
+    } else {
+      result.innerText = `It's a tie! ${humanScore} - ${computerScore}`;
+    }
+  }
+}
 function game() {
-  humanScore = 0;
-  computerScore = 0;
-  for (let i = 0; i < 5; i++) {
-    const humanSelection = getHumanChoice();
-    const computerSelection = getComputerChoice();
-    playRound(computerSelection, humanSelection);
-  }
-  if (humanScore > computerScore) {
-    console.log(`You win! ${humanScore} - ${computerScore}`);
-  } else if (humanScore < computerScore) {
-    console.log(`You lose! ${humanScore} - ${computerScore}`);
-  } else {
-    console.log(`It's a tie! ${humanScore} - ${computerScore}`);
-  }
+  let btn_rock = document.getElementById("rock");
+  let btn_paper = document.getElementById("paper");
+  let btn_scissors = document.getElementById("scissors");
+
+  btn_rock.addEventListener("click", () => {
+    if (roundPlayed < maxRounds) {
+      let computerSelection = getComputerChoice();
+      playRound(computerSelection, "rock");
+    }
+  });
+  btn_paper.addEventListener("click", () => {
+    if (roundPlayed < maxRounds) {
+      let computerSelection = getComputerChoice();
+      playRound(computerSelection, "paper");
+    }
+  });
+  btn_scissors.addEventListener("click", () => {
+    if (roundPlayed < maxRounds) {
+      let computerSelection = getComputerChoice();
+      playRound(computerSelection, "scissors");
+    }
+  });
 }
 
 game();
