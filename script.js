@@ -44,25 +44,26 @@ function playRound(ComputerChoice, humanChoice) {
 }
 
 function updateScore() {
-  let result = document.querySelector(".result");
-  let score = document.querySelector(".human");
-  let tie = document.querySelector(".tie");
-  let computer = document.querySelector(".computer");
+  const human = document.querySelector(".human");
+  const computer = document.querySelector(".computer");
+  const tie = document.querySelector(".tie");
+  const result = document.querySelector(".result");
 
-  score.innerText = `Human: ${humanScore}`;
+  human.innerText = `Human: ${humanScore}`;
   computer.innerText = `Computer: ${computerScore}`;
   tie.innerText = `Ties: ${roundPlayed - humanScore - computerScore}`;
 
   if (roundPlayed >= maxRounds) {
     if (humanScore > computerScore) {
-      result.innerText = `You win! ${humanScore} - ${computerScore}`;
+      result.innerText = `You win!, plyer: ${humanScore}, computer: ${computerScore}`;
     } else if (humanScore < computerScore) {
-      result.innerText = `You lose! ${humanScore} - ${computerScore}`;
+      result.innerText = `You lose!, plyer: ${humanScore}, computer: ${computerScore}`;
     } else {
-      result.innerText = `It's a tie! ${humanScore} - ${computerScore}`;
+      result.innerText = `It's a tie!, plyer: ${humanScore}, computer: ${computerScore}`;
     }
   }
 }
+
 function game() {
   let btn_rock = document.getElementById("rock");
   let btn_paper = document.getElementById("paper");
